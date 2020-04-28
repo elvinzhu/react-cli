@@ -23,6 +23,7 @@
   "dependencies": {
     "address": "^1.1.2",
     "commander": "^5.1.0",
-    "inquirer": "^7.1.0"
+    "inquirer": "^7.1.0",
+    "ncp": "^2.0.0"
   }
 }

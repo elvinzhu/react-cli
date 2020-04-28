@@ -1,38 +1,27 @@
-import React, { useEffect, Suspense } from "react";
-import { Loading } from 'zarm';
-import { Router, Switch, Route } from "react-router";
-import { withRouter } from "react-router";
-import { getHistory } from './history';
+import React, { useEffect, Suspense } from 'react'
+import { Router, Switch, Route } from 'react-router'
+import { withRouter } from 'react-router'
+import { getHistory } from './history'
+import PageLoading from './components/PageLoading'
 
-import './app.less';
+import './app.less'
 
-import Index from './pages/index';
-const Disease = React.lazy(() => import(/* webpackChunkName: "healthnotify/disease" */'./pages/healthnotify/disease'));
-const Confirm = React.lazy(() => import(/* webpackChunkName: "healthnotify/confirm" */'./pages/healthnotify/confirm'));
-const Detail = React.lazy(() => import(/* webpackChunkName: "healthnotify/detail" */'./pages/healthnotify/detail'));
-const Result = React.lazy(() => import(/* webpackChunkName: "healthnotify/result" */'./pages/healthnotify/result'));
+import Index from './pages/index'
+// const OtherPage = React.lazy(() =>
+//   import(
+//     /* webpackChunkName: "OtherPage" */ './pages/OtherPage'
+//   )
+// )
 
 export default function App({ baseUrl }) {
-  console.log('[H5] App rendering...')
   return (
     <Router history={getHistory(baseUrl)}>
-      <Suspense fallback={<ImportLoading />}>
+      <Suspense fallback={<PageLoading />}>
         <Switch>
           <Route exact path="/" component={withRouter(Index)} />
-          <Route path="/healthnotify/disease" component={withRouter(Disease)} />
-          <Route path="/healthnotify/confirm" component={withRouter(Confirm)} />
-          <Route path="/healthnotify/detail" component={withRouter(Detail)} />
-          <Route path="/healthnotify/result" component={withRouter(Result)} />
+          {/* <Route path="/otherpage" component={withRouter(OtherPage)} /> */}
         </Switch>
       </Suspense>
     </Router>
   )
 }
-
-function ImportLoading() {
-  useEffect(() => {
-    Loading.show();
-    return () => { Loading.hide() }
-  }, []);
-  return null;
-};

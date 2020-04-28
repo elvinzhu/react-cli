@@ -12,9 +12,9 @@ const styleLoader = isDevelopment
   }
 
 module.exports = {
-  noParse: /^(react|react-dom|redux|react-router|react-router-dom|classnames|zarm|lodash)$/,
+  noParse: /^(react|react-dom|redux|react-router|react-router-dom|classnames|lodash)$/,
   rules: [{
-    test: /\.js?$/,
+    test: /\.(js|jsx)?$/,
     exclude: /node_modules/,
     use: ['cache-loader', 'babel-loader']
   }, {

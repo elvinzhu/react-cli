@@ -8,6 +8,7 @@ export {
   getFormValues,
   getFormKeys,
   updateFormKey,
+  rerangeFormKey,
   // param
   toParam,
   parseParam,
@@ -31,10 +32,35 @@ export {
   hasValue,
   getValue,
   getStringValue,
+  getValuePath,
   // 信息提取
   toAge,
   getBirthday,
   getSex
+}
+
+function getValuePath(
+  value, list,
+  valueMember = "value",
+  childrenMember = 'children'
+) {
+  const path = [];
+  if (list && list.length && hasValue(value)) {
+    for (let i = 0, len = list.length; i < len; i++) {
+      let item = list[i];
+      path.push(item);
+      if (item[valueMember] === value) {
+        return path;
+      }
+      const childPath = getValuePath(value, item[childrenMember], valueMember, childrenMember);
+      if (childPath.length) {
+        return path.concat(childPath)
+      } else {
+        path.pop();
+      }
+    }
+  }
+  return path;
 }
 
 function getStringValue(value) {
@@ -86,7 +112,7 @@ function getHashParam() {
 // 有点选框， 无法交互
 function isPreviewMode() {
   return getQueryParam().mode === 'preview'
-    || isTemplateToolMode();
+    || isTemplateToolMode()
 }
 
 // 手机扫二维码预览，配置数据从接口拿
@@ -96,6 +122,7 @@ function isSimulateMode() {
 
 // 纯预览模板，配置数据从postmesage拿
 // 无 点选框
+// 配置流程 + 模板工具使用
 function isTemplateMode() {
   return getQueryParam().mode === 'template'
 }
@@ -107,19 +134,34 @@ function isTemplateToolMode() {
 
 function isNormalMode() {
   return !getQueryParam().mode
+    && !isTemplateToolMode()
 }
 
 function updateFormKey(children, index) {
   // insurant.name => insurant[0].name
+  // insurant[0].name => insurant[0][0].name
+  const reg = /\.([a-z_]+)$/i;
+  return children.map(item => {
+    return {
+      ...item,
+      formKey: item.formKey && item.formKey.replace(
+        reg,
+        `[${index}].$1`
+      )
+    }
+  })
+}
+
+function rerangeFormKey(children, index) {
+  // insurant.name => insurant[1].name
+  // insurant[0].name => insurant[1].name
+  const reg = /(\[\d+\])?\.([a-z_]+)$/i;
   children.forEach(item => {
     if (item.formKey) {
-      const arr = item.formKey.split('.');
-      if (arr.length > 1) {
-        const nsIndex = arr.length - 2;
-        const namespace = arr[nsIndex];
-        arr[nsIndex] = namespace.split('[')[0] + `[${index}]`;
-        item.formKey = arr.join('.')
-      }
+      item.formKey = item.formKey.replace(
+        reg,
+        `[${index}].$2`
+      )
     }
   })
 }
@@ -161,15 +203,9 @@ function getFormValues(htmlForm, formKeys) {
   } else {
     const eles = form.elements, len = eles.length;
     for (let i = 0; i < len; i++) {
-
       if (eles[i].name && eles[i].tagName === 'INPUT') {
         _.set(value, eles[i].name, eles[i].value)
       }
-      //TODO...需要修改
-      // if (eles[i].name && eles[i].tagName === 'BUTTON') {
-      //   const sEle  = eles[i].getElementsByTagName("input")[0];
-      //   _.set(value, sEle.name, sEle.value)
-      // }
     }
   }
   return value;
@@ -190,16 +226,25 @@ function getFormKeys(children) {
 
 function addDay(date, num) {
   date = parseDate(date);
+  if (typeof num === 'string') {
+    num = +num
+  }
   return new Date(date.setDate(date.getDate() + num));
 }
 
 function addMonth(date, num) {
   date = parseDate(date);
+  if (typeof num === 'string') {
+    num = +num
+  }
   return new Date(date.setMonth(date.getMonth() + num));
 }
 
 function addYear(date, num) {
   date = parseDate(date);
+  if (typeof num === 'string') {
+    num = +num
+  }
   return new Date(date.setFullYear(date.getFullYear() + num));
 }
 
@@ -270,9 +315,9 @@ function getBirthday(idCard) {
 function getSex(idCard) {
   var sex = "";
   if (parseInt(idCard.substr(16, 1)) % 2 === 1) {
-    return "MALE";
+    return "M";
   } else {
-    sex = "FEMALE";
+    sex = "F";
   }
   return sex;
 }
