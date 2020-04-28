@@ -13,16 +13,13 @@ program
   .command('create')
   .description('create a react app')
   .action(() => {
-    create().then((answers) => {
-      console.log(JSON.stringify(answers, null, '  '))
-    })
+    create().then((answers) => {})
   })
 
 program
   .command('eject')
   .description('create a react app')
   .action((source, destination) => {
-    
     console.log(chalk.red('command not supported yet!'))
   })
 
