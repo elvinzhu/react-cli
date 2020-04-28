@@ -1,0 +1,290 @@
+@import '../node_modules/zarm/dist/zarm.css';
+@import './themes/t1.css';
+
+html,
+body {
+  height: 100%;
+  background-color: #f2f2f2;
+}
+
+.page-view {
+  max-width: 750px;
+  min-height: 100vh;
+  margin: auto;
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: 'Chinese Quote', apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', 'Helvetica, Arial', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  .fz10 {
+    font-size: 10px;
+  }
+
+  .fz12 {
+    font-size: 12px;
+  }
+
+  .fz14 {
+    font-size: 14px;
+  }
+
+  .fz15 {
+    font-size: 15px;
+  }
+
+  .fz16 {
+    font-size: 16px;
+  }
+
+  .fz18 {
+    font-size: 18px;
+  }
+
+  .fz20 {
+    font-size: 20px;
+  }
+
+  .fz30 {
+    font-size: 30px;
+  }
+
+  .fz32 {
+    font-size: 32px;
+  }
+
+  .c-main {
+    color: var(--theme-primary);
+  }
+
+  .c-fff {
+    color: #fff;
+  }
+
+  .c-999 {
+    color: #999;
+  }
+
+  .c-333 {
+    color: #333;
+  }
+
+  .c-666 {
+    color: #666;
+  }
+
+  .c-b4 {
+    color: #b4b4b4;
+  }
+
+  .bg-fff {
+    background-color: #fff;
+  }
+
+  .w-100 {
+    width: 100%;
+  }
+
+  .pr {
+    position: relative;
+  }
+
+  .oh {
+    overflow: hidden;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .tc {
+    text-align: center;
+  }
+
+  .tr {
+    text-align: right;
+  }
+
+  .fr {
+    float: right;
+  }
+
+  .fl {
+    float: left;
+  }
+
+  .lh20 {
+    line-height: 20px;
+  }
+
+  .lh30 {
+    line-height: 30px;
+  }
+
+  .mt5 {
+    margin-top: 5px;
+  }
+
+  .mt10 {
+    margin-top: 10px;
+  }
+
+  .mt15 {
+    margin-top: 15px;
+  }
+
+  .mt20 {
+    margin-top: 20px;
+  }
+
+  .mt30 {
+    margin-top: 30px;
+  }
+
+  .mb5 {
+    margin-bottom: 5px;
+  }
+
+  .mb10 {
+    margin-bottom: 10px;
+  }
+
+  .mb20 {
+    margin-bottom: 20px;
+  }
+
+  .mb30 {
+    margin-bottom: 30px;
+  }
+
+  .ml2 {
+    margin-left: 2px;
+  }
+
+  .ml3 {
+    margin-left: 3px;
+  }
+
+  .ml5 {
+    margin-left: 5px;
+  }
+
+  .ml10 {
+    margin-left: 10px;
+  }
+
+  .mr5 {
+    margin-right: 5px;
+  }
+
+  .pt0 {
+    padding-top: 0;
+  }
+
+  .pt5 {
+    padding-top: 5px;
+  }
+
+  .pt10 {
+    padding-top: 10px;
+  }
+
+  .pt15 {
+    padding-top: 15px;
+  }
+
+  .pt20 {
+    padding-top: 20px;
+  }
+
+  .pb10 {
+    padding-bottom: 10px;
+  }
+
+  .pb15 {
+    padding-bottom: 15px;
+  }
+
+  .pb20 {
+    padding-bottom: 20px;
+  }
+
+  .pr20 {
+    padding-right: 20px;
+  }
+
+  .pl10 {
+    padding-left: 10px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hair-line {
+    position: relative;
+  }
+  .hair-line::before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+    border-color: #dcdcdc;
+    border-style: solid;
+    border-width: 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+  .hair-line--b::before {
+    border-bottom-width: 1px;
+  }
+  .hair-line--t::before {
+    border-top-width: 1px;
+  }
+  .hair-line--r::before {
+    border-right-width: 1px;
+  }
+  .hair-line--l::before {
+    border-left-width: 1px;
+  }
+  .hair-line--a::before {
+    border-width: 1px;
+  }
+}
+
+/* zarm css override */
+
+/* 解决客服微前端样式冲突 */
+.za-mask--transparent {
+  background-color: transparent !important;
+}
+
+.za-cell--arrow-down .za-cell__arrow {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.za-cell--arrow-down .za-cell__arrow::after {
+  transform: rotate(135deg);
+  margin-bottom: 3px;
+}
